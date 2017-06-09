@@ -1,0 +1,5 @@
+/app/values/fbcreds.js
+/app/values/mapapi.js
+lib
+/django/capstone/stock_up/migrations
+/django/capstone/stock_up/__pycache__
