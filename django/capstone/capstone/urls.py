@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from rest_framework import routers
-from stock_up import views 
+from stock_up import views  
 from django.contrib import admin
 
 
@@ -23,8 +23,6 @@ router = routers.DefaultRouter()
 router.register(r'products', views.ProductViewSet)
 router.register(r'stores', views.StoreViewSet)
 router.register(r'categories', views.CategoryViewSet)
-
-
 
 
 urlpatterns = [

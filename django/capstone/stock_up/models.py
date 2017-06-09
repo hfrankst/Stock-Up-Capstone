@@ -1,20 +1,5 @@
 from django.db import models
 
-# Create your models here.
-
-
-class Product(models.Model):
-    """
-    Properties: to build the product table necessary to hold information about each product 
-    Author: Harper Frankstone
-    """
-
-    name = models.Charfield(max_length=100)
-    sale_price = models.IntegerField()
-    sale_start = models.Charfield(max_length=50)
-    sale_end = models.Charfield(max_length=50)
-    store = models.ForeignKey(Store)
-    category = models.ForeignKey(Category)
 
 
 class Store(models.Model):
@@ -23,10 +8,10 @@ class Store(models.Model):
     Author: Harper Frankstone
     """
 
-    name = models.Charfield(max_length=50)
-    address = models.Charfield(max_length=100)
-    phone = models.Charfield(max_length=20)
-    website = models.Charfield(max_length=100)
+    name = models.CharField(max_length=50)
+    address = models.CharField(max_length=100)
+    phone = models.CharField(max_length=20)
+    website = models.CharField(max_length=100)
 
 
 class Category(models.Model):
@@ -35,4 +20,19 @@ class Category(models.Model):
     Author: Harper Frankstone
     """
 
-    name = models.Charfield(max_length=50)
+    name = models.CharField(max_length=50)
+
+
+
+class Product(models.Model):
+    """
+    Properties: to build the product table necessary to hold information about each product 
+    Author: Harper Frankstone
+    """
+
+    name = models.CharField(max_length=100)
+    sale_price = models.IntegerField()
+    sale_start = models.CharField(max_length=50)
+    sale_end = models.CharField(max_length=50)
+    store = models.ForeignKey(Store)
+    category = models.ForeignKey(Category)

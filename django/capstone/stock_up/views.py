@@ -1,7 +1,6 @@
-from django.shortcuts import render
-from django.contrib.auth.models import Product, Store, Category
+from stock_up.models import Store, Category, Product
 from rest_framework import viewsets
-from tutorial.quickstart.serializers import ProductSerializer, StoreSerializer, CategorySerializer
+from stock_up.serializers import ProductSerializer, StoreSerializer, CategorySerializer
 
 
 class ProductViewSet(viewsets.ModelViewSet):
@@ -26,3 +25,4 @@ class CategoryViewSet(viewsets.ModelViewSet):
     """
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+
