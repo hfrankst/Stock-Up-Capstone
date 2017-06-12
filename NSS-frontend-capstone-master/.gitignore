@@ -1,5 +1,6 @@
 /app/values/fbcreds.js
 /app/values/mapapi.js
-lib
 /django/capstone/stock_up/migrations
 /django/capstone/stock_up/__pycache__
+/NSS-frontend-capstone-master/lib/bower_components
+/NSS-frontend-capstone-master/lib/node_modules
