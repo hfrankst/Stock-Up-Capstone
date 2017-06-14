@@ -38,14 +38,19 @@ prices = []
 for table_cell in raw_table_data:
     if table_cell['width'] == '228':
         product_name = table_cell.get_text()
-        print(product_name)
+        # print(product_name)
+        names.append(product_name)
     elif table_cell['width'] == '55':
         product_price = table_cell.get_text()
-        print(product_price)
-        if product_price is :
-            print('I hate tables')
-    info.append(product_name, product_price)
-    print(info)
+        # print(product_price)
+        if product_price is "":
+            product_price = product_price.replace(u'\xa0', u' ')
+        prices.append(product_price)
+            
+# names.extend(product_name)
+# prices.extend(product_price)
+print('names: ', names)
+print('prices: ', prices)
         # print(product_price.get_text())
 
     # write_to_kroger_table(product_name, product_price)
