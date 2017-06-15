@@ -3,17 +3,18 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def write_to_kroger_table(self, name, sale_price):
+def write_to_product_table(name, sale_price):
     """
     Purpose: to write the sale_price and name to the database
     Author: Harper Frankstone
     Args: name -- text of product names, sale_price -- text of the product price
     """
-    with sqlite3.connect('../django/capstone/db.sqlite3') as conn:
+
+
+    with sqlite3.connect('../../django/capstone/db.sqlite3') as conn:
         c = conn.cursor()
 
-        c.execute("INSERT INTO stock_up_product VALUES (?, ?, ?)",
-            (name, sale_price, 1))
+        c.execute("INSERT INTO stock_up_krogerproduct VALUES (?, ?, ?, ?)", (None, name, 1, sale_price))
 
         conn.commit()
 
@@ -31,29 +32,25 @@ response = requests.get(url, timeout=10)
 soup = BeautifulSoup(response.content, "html.parser")
 tables = soup.find_all('td')
 raw_table_data = tables[35:-3]
-# print(raw_table_data)
 
+# the following empty lists, and code block iterate over the raw_table_data to separate the prices and names into corresponding lists
 names = []
 prices = []
 for table_cell in raw_table_data:
     if table_cell['width'] == '228':
         product_name = table_cell.get_text()
-        # print(product_name)
-        names.append(product_name)
+        names.append(product_name.replace('Got a list question? Want to check if next week\'s list is ready?  Our listmakers answer questions and post our "preview" lists at PYP.', ''))
     elif table_cell['width'] == '55':
         product_price = table_cell.get_text()
-        # print(product_price)
-        if product_price is "":
-            product_price = product_price.replace(u'\xa0', u' ')
-        prices.append(product_price)
+        prices.append(product_price.replace(u'\xa0', u' '))
+    name_string = '%'.join(names)
+    price_string = '%'.join(prices)
             
-# names.extend(product_name)
-# prices.extend(product_price)
-print('names: ', names)
-print('prices: ', prices)
-        # print(product_price.get_text())
+# print('names: ', names)
+# print('prices: ', prices)
 
-    # write_to_kroger_table(product_name, product_price)
+    # passing the lists to the function that will write to a database
+    write_to_product_table(name_string, price_string)
 
 
 

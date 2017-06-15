@@ -30,6 +30,6 @@ class KrogerProduct(models.Model):
     Author: Harper Frankstone
     """
 
-    name = models.CharField(max_length=100)
-    sale_price = models.CharField(max_length=20)
+    name = models.CharField(max_length=10000000000)
+    sale_price = models.CharField(max_length=10000000000)
     store = models.ForeignKey(Store)

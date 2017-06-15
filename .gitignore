@@ -4,3 +4,4 @@
 /django/capstone/stock_up/__pycache__
 /NSS-frontend-capstone-master/lib/bower_components
 /NSS-frontend-capstone-master/lib/node_modules
+/django/capstone/db.sqlite3
