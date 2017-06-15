@@ -11,7 +11,7 @@ class Store(models.Model):
     name = models.CharField(max_length=50)
     address = models.CharField(max_length=100)
     phone = models.CharField(max_length=20)
-    website = models.CharField(max_length=100)
+   
 
 
 class Category(models.Model):
@@ -24,15 +24,12 @@ class Category(models.Model):
 
 
 
-class Product(models.Model):
+class KrogerProduct(models.Model):
     """
     Properties: to build the product table necessary to hold information about each product 
     Author: Harper Frankstone
     """
 
-    name = models.CharField(max_length=100)
-    sale_price = models.IntegerField()
-    sale_start = models.CharField(max_length=50)
-    sale_end = models.CharField(max_length=50)
+    name = models.CharField(max_length=10000000000)
+    sale_price = models.CharField(max_length=10000000000)
     store = models.ForeignKey(Store)
-    category = models.ForeignKey(Category)

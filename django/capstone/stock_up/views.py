@@ -1,14 +1,14 @@
-from stock_up.models import Store, Category, Product
+from stock_up.models import Store, Category, KrogerProduct
 from rest_framework import viewsets
-from stock_up.serializers import ProductSerializer, StoreSerializer, CategorySerializer
+from stock_up.serializers import KrogerProductSerializer, StoreSerializer, CategorySerializer
 
 
-class ProductViewSet(viewsets.ModelViewSet):
+class KrogerProductViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows products to be viewed.
     """
-    queryset = Product.objects.all().order_by('name')
-    serializer_class = ProductSerializer
+    queryset = KrogerProduct.objects.all().order_by('name')
+    serializer_class = KrogerProductSerializer
 
 
 class StoreViewSet(viewsets.ModelViewSet):
