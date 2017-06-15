@@ -20,9 +20,8 @@ from django.contrib import admin
 
 
 router = routers.DefaultRouter()
-router.register(r'products', views.KrogerProductViewSet)
-router.register(r'stores', views.StoreViewSet)
-router.register(r'categories', views.CategoryViewSet)
+router.register(r'products', views.ProductViewSet)
+
 
 
 urlpatterns = [
