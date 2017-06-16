@@ -20,11 +20,11 @@ let isAuth = (AuthFactory) => new Promise ((resolve, reject) => {
 
 app.config(function($routeProvider){
 	$routeProvider.
+	// when('/', {
+	// 	templateUrl: '/partials/login.html',
+	// 	controller: "LoginCtrl"
+	// }).
 	when('/', {
-		templateUrl: '/partials/login.html',
-		controller: "LoginCtrl"
-	}).
-	when('/home', {
 		templateUrl: '/partials/home.html',
 		controller: "HomeCtrl",
 		resolve: {isAuth}
