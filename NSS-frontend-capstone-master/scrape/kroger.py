@@ -57,9 +57,9 @@ def write_to_sqlite(list_obj):
     df = pd.DataFrame(list_obj, columns=colomn_name)
     con = sql.connect("../../django/capstone/db.sqlite3")
     try:
-        pd_sql.to_sql(df, "Product", con, index=False)
+        pd_sql.to_sql(df, "stock_up_product", con, index=False)
     except ValueError:
-        pd_sql.to_sql(df, 'Product', con, index=False, if_exists='append')
+        pd_sql.to_sql(df, 'stock_up_product', con, index=False, if_exists='append')
 
 
 

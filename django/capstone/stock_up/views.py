@@ -7,7 +7,7 @@ class ProductViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows products to be viewed.
     """
-    queryset = Product.objects.all().order_by('name')
+    queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
 
