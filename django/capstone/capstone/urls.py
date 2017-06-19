@@ -27,7 +27,8 @@ router.register(r'products', views.ProductViewSet)
 urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^admin/', admin.site.urls),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^api/', include('rest_framework.urls', namespace='rest_framework')),
     # https://thinkster.io/django-angularjs-tutorial    --this tutorial said that the below url route needs to be the last one, it's a catch-all url that feeds everything to the angular client
-    url('^.*$', IndexView.as_view(), name='index')
+    # got an error thrown because the IndexView isn't defined anywhere
+    # url('^.*$', IndexView.as_view(), name='index')
 ]

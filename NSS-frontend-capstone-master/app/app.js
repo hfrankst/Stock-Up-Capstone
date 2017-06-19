@@ -1,29 +1,25 @@
 "use strict";
 
-var app = angular.module("Bargains", ["ngRoute"]);
+var app = angular.module("stock_up", ["ngRoute"]);
 
-let isAuth = (AuthFactory) => new Promise ((resolve, reject) => {
-  // console.log("running isAuth");
-    AuthFactory.isAuthenticated()
-    .then ( (userExists) => {
-    console.log("userExists", userExists);
-        if (userExists){
-      console.log("Authenticated, go ahead.");
-            resolve();
-        }else {
-      console.log("Authentication rejected, go away.");
-            reject();
-        }
-    });
-});
+// let isAuth = (AuthFactory) => new Promise ((resolve, reject) => {
+//   // console.log("running isAuth");
+//     AuthFactory.isAuthenticated()
+//     .then ( (userExists) => {
+//     console.log("userExists", userExists);
+//         if (userExists){
+//       console.log("Authenticated, go ahead.");
+//             resolve();
+//         }else {
+//       console.log("Authentication rejected, go away.");
+//             reject();
+//         }
+//     });
+// });
 
 
 app.config(function($routeProvider){
 	$routeProvider.
-	// when('/', {
-	// 	templateUrl: '/partials/login.html',
-	// 	controller: "LoginCtrl"
-	// }).
 	when('/', {
 		templateUrl: '/partials/home.html',
 		controller: "HomeCtrl",
@@ -34,6 +30,16 @@ app.config(function($routeProvider){
 	}).
 	otherwise('/');
 });
+
+
+app.config(['$httpProvider', function($httpProvider) {
+      $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+      $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+  }
+]);
+
+
+
 
 
 //run when the app loads

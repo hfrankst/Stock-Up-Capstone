@@ -2,28 +2,28 @@
 
 app.controller('HomeCtrl', function($scope, SearchTermData, ProductFactory, AuthFactory){
 	$scope.searchText = SearchTermData;
-	let user = AuthFactory.getUser();
-	let labels = ["dairy", "seafood", "baked goods", "produce", "condiments"];
+	// let user = AuthFactory.getUser();
+	// let labels = ["dairy", "seafood", "baked goods", "produce", "condiments"];
 
 	//this gets all available promos and loads immediately on the promotions page, organizing into tables based on product category
 	let getPromos = () => {
 			ProductFactory.getAllPromos()
 			.then((promodata) => {
+				console.log("promodata from controller", promodata)
 				$scope.promotions = promodata;
-				// console.log("promodata", promodata);
-					let table = [];
-					for(var i = 0; i < promodata.length; i++){
-					let table_head = {
-						title: promodata[i].category,
-						name: "Product Name",
-						reg_price: "Regular Price",
-						sale: "Discount Price",
-						date: "Sale Valid Through",
-						location: "Find It Here!"
-					};
-					table.push(table_head);
-				$scope.tables = table;
-				};
+					// let table = [];
+					// for(var i = 0; i < promodata.length; i++){
+					// let table_head = {
+					// 	title: promodata[i].category,
+					// 	name: "Product Name",
+					// 	reg_price: "Regular Price",
+					// 	sale: "Discount Price",
+					// 	date: "Sale Valid Through",
+					// 	location: "Find It Here!"
+					// };
+				// 	table.push(table_head);
+				// $scope.tables = table;
+				// };
 			}); 
 	};
 	getPromos();
@@ -39,44 +39,44 @@ app.controller('HomeCtrl', function($scope, SearchTermData, ProductFactory, Auth
 		});
 	};
 
-	let catPromises = labels.map((label) => {
-		getCats(label);
-	});
+	// let catPromises = labels.map((label) => {
+	// 	getCats(label);
+	// });
 
-	Promise.all(labels.map((label) => getCats(label))).then(
-		(myArray) => {
-			// console.log("myArray", myArray);
-		let myTables = [];
-		myTables.push(myArray[0]);
+	// Promise.all(labels.map((label) => getCats(label))).then(
+	// 	(myArray) => {
+	// 		// console.log("myArray", myArray);
+	// 	let myTables = [];
+	// 	myTables.push(myArray[0]);
 
-		for(var i = 1; i < myArray.length; i++){
-			let tablePromos = myArray[i];
-			let tableArray = [];
-			Object.keys(tablePromos).forEach((key) => {
-				tableArray.push(tablePromos[key]);
-			});
-			myTables.push(tableArray);
-		}
-		// console.log("myTables", myTables);
-		$scope.myTables = myTables;
-		let finalArray = [];
-		myTables.forEach((promo) => {
-			// console.log("promo", promo);
-			let table = {
-				heading: promo[0]["category"],
-				name: "Product Name",
-				reg_price: "Regular Price",
-				sale: "Discount Price",
-				date: "Sale Valid Through",
-				location: "Find It Here!",
-				promotions: promo
-			};
-			finalArray.push(table);
-			console.log("finally", finalArray);
-		$scope.finalArray = finalArray;
-		$scope.$apply();
-		});
-	});
+	// 	for(var i = 1; i < myArray.length; i++){
+	// 		let tablePromos = myArray[i];
+	// 		let tableArray = [];
+	// 		Object.keys(tablePromos).forEach((key) => {
+	// 			tableArray.push(tablePromos[key]);
+	// 		});
+	// 		myTables.push(tableArray);
+	// 	}
+	// 	// console.log("myTables", myTables);
+	// 	$scope.myTables = myTables;
+	// 	let finalArray = [];
+	// 	myTables.forEach((promo) => {
+	// 		// console.log("promo", promo);
+	// 		let table = {
+	// 			heading: promo[0]["category"],
+	// 			name: "Product Name",
+	// 			reg_price: "Regular Price",
+	// 			sale: "Discount Price",
+	// 			date: "Sale Valid Through",
+	// 			location: "Find It Here!",
+	// 			promotions: promo
+	// 		};
+	// 		finalArray.push(table);
+	// 		// console.log("finally", finalArray);
+	// 	$scope.finalArray = finalArray;
+	// 	$scope.$apply();
+	// 	});
+	// });
 
 	//this function is building a new object to be stored by uid, so that the user can load his/her saved promos on the profile page
 	$scope.savePromo = (promo) => {
