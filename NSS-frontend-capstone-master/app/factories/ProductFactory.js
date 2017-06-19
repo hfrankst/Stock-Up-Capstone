@@ -12,13 +12,14 @@ app.factory('ProductFactory', function($q, $http, $routeParams){
 		return $q((resolve, reject) => {
       		$http.get(`http://localhost:8000/products/`)
       		.then((promodata) => { 
-      			console.log("promodata", promodata)
-      			// let promoArray = [];
-      			// let promoCollection = promodata.data;
-      			// Object.keys(promoCollection).forEach((key) => {
-      			// 	promoCollection[key].id = key;
-      			// 	promoArray.push(promoCollection[key]);
-      			// });
+      			// console.log("promodata", promodata)
+      			let promoArray = [];
+      			let promoCollection = promodata.data;
+      			Object.keys(promoCollection).forEach((key) => {
+      				promoCollection[key].id = key;
+      				promoArray.push(promoCollection[key]);
+      			});
+      			// console.log("promoArray", promoArray)
       			resolve(promodata);
       		});
       	});

@@ -2,26 +2,39 @@
 
 app.controller('HomeCtrl', function($scope, SearchTermData, ProductFactory, AuthFactory){
 	$scope.searchText = SearchTermData;
-	// let user = AuthFactory.getUser();
-	// let labels = ["dairy", "seafood", "baked goods", "produce", "condiments"];
 
 	//this gets all available promos and loads immediately on the promotions page, organizing into tables based on product category
 	let getPromos = () => {
 			ProductFactory.getAllPromos()
 			.then((promodata) => {
-				console.log("promodata from controller", promodata)
-				$scope.promotions = promodata;
-					// let table = [];
-					// for(var i = 0; i < promodata.length; i++){
-					// let table_head = {
-					// 	title: promodata[i].category,
-					// 	name: "Product Name",
-					// 	reg_price: "Regular Price",
-					// 	sale: "Discount Price",
-					// 	date: "Sale Valid Through",
-					// 	location: "Find It Here!"
-					// };
+				$scope.promotions = promodata.data;
+				console.log("promodata", promotions)
+
+				// let table_data = []
+				// let names = []
+				// let prices = []
+				// let stores = []
+				// for(var i = 0; i < promotions.length; i++){
+				// 	names = promotions[i].name
+				// 	prices = promotions[i].sale_price
+				// 	stores = promotions[i].store
+				// 	table_data.push(names + ' ' + prices)
+				// };
+				// console.log("table_data with names, ", table_data)
+
+
+
+
+				// 	let table = [];
+				// 	for(var i = 0; i < promodata.length; i++){
+				// 	let table_head = {
+				// 		title: promodata[i].store,
+				// 		name: "Product Name",
+				// 		sale: "Discount Price",
+				// 		location: "Find It Here!"
+				// 	};
 				// 	table.push(table_head);
+				// 	console.log("table", table)
 				// $scope.tables = table;
 				// };
 			}); 
@@ -45,7 +58,7 @@ app.controller('HomeCtrl', function($scope, SearchTermData, ProductFactory, Auth
 
 	// Promise.all(labels.map((label) => getCats(label))).then(
 	// 	(myArray) => {
-	// 		// console.log("myArray", myArray);
+	// 		console.log("myArray", myArray);
 	// 	let myTables = [];
 	// 	myTables.push(myArray[0]);
 
