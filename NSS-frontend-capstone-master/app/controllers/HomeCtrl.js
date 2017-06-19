@@ -8,7 +8,7 @@ app.controller('HomeCtrl', function($scope, SearchTermData, ProductFactory, Auth
 			ProductFactory.getAllPromos()
 			.then((promodata) => {
 				$scope.promotions = promodata.data;
-				console.log("promodata", promotions)
+				// console.log("promodata", $scope.promotions)
 
 				// let table_data = []
 				// let names = []
@@ -22,21 +22,21 @@ app.controller('HomeCtrl', function($scope, SearchTermData, ProductFactory, Auth
 				// };
 				// console.log("table_data with names, ", table_data)
 
-
-
-
-				// 	let table = [];
-				// 	for(var i = 0; i < promodata.length; i++){
-				// 	let table_head = {
-				// 		title: promodata[i].store,
-				// 		name: "Product Name",
-				// 		sale: "Discount Price",
-				// 		location: "Find It Here!"
-				// 	};
-				// 	table.push(table_head);
-				// 	console.log("table", table)
-				// $scope.tables = table;
-				// };
+				let promo = promodata.data
+				// console.log("promo to go into table", promo[0].store)
+				let table = [];
+				for(var i = 0; i < promo.length; i++){
+					let table_head = {
+						title: promo[i].store,
+						name: "Product Name",
+						sale: "Discount Price",
+						location: "Find It Here!"
+					};
+					// console.log("table_head", table_head)
+				table.push(table_head);
+				$scope.tables = table;
+				// console.log("table", $scope.tables[0].title)
+				};
 			}); 
 	};
 	getPromos();
@@ -93,18 +93,12 @@ app.controller('HomeCtrl', function($scope, SearchTermData, ProductFactory, Auth
 
 	//this function is building a new object to be stored by uid, so that the user can load his/her saved promos on the profile page
 	$scope.savePromo = (promo) => {
-		console.log("savePromo");
+		console.log("savePromo", promo);
 		var savedPromo = {
 			name: promo.name,
 			store: promo.store,
-			reg_price: promo.reg_price,
-			discount_price: promo.discount_price,
-			promo_end: promo.promo_end,
-			uid: user,
-			address: promo.address,
-			phone: promo.phone
+			sale_price: promo.sale_price,
 		};
-		ProductFactory.saveUsersPromos(savedPromo);
 
 		$.notify({
 			icon: 'glyphicon glyphicon-check',
