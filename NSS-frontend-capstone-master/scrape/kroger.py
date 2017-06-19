@@ -1,100 +1,78 @@
-import sqlite3
 import requests
 from bs4 import BeautifulSoup
+import pandas as pd
+import pandas.io.sql as pd_sql
+from pprint import pprint
+import sqlite3 as sql
 
-
-def write_to_product_table(name, sale_price):
+# Scraping by store
+def scrape_store(url):
     """
-    Purpose: to write the sale_price and name to the database
-    Author: Harper Frankstone
-    Args: name -- text of product names, sale_price -- text of the product price
+    Purpose: to scrape the target url and parse the information with the intent of inserting to the database
+    Author: Harper Frankstone/ Gilbert Diaz
+    Args: url -- (string) url address to point the requests.get() method to
     """
+    
+    # Hits the store url and creats BeaustifulSoup Object
+    response = requests.get(url)
+    html = BeautifulSoup(response.content, 'html.parser')
+    
+    # Empty list to build store sales
+    super_market = list()
 
+    # Create item, price, store objects
+    items = html.find_all(attrs={'width': "228"})
+    prices = html.find_all(attrs={'width': "55"})
+    
+    # Gets the store's name
+    for k, store in enumerate(items):
+        if k == 1:
+            store_name = store.text 
 
-    with sqlite3.connect('../../django/capstone/db.sqlite3') as conn:
-        c = conn.cursor()
+    # Append items to list
+    for k, item in enumerate(items):
+        if k > 3:
+            super_market.append([item.text])
+    
+    # Append price to list
+    for k, price in enumerate(prices):
+        if k > 3:
+            super_market[k-4].append(price.text)
 
-        c.execute("INSERT INTO stock_up_krogerproduct VALUES (?, ?, ?, ?)", (None, name, 1, sale_price))
+    # Append store's name to list            
+    for k, _ in enumerate(super_market):
+        super_market[k].append(store_name)
 
-        conn.commit()
+    return super_market
 
-
-# required for the request.get()
-headers = {
-    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
-}
-# target URL
-url = "http://www.grocerysmarts.com/tenn/lists/indexmemphis.php?k37ro2"
-
-# get the request object containing all info to get ready for the soup
-response = requests.get(url, timeout=10)
-
-soup = BeautifulSoup(response.content, "html.parser")
-tables = soup.find_all('td')
-raw_table_data = tables[35:-3]
-
-# the following empty lists, and code block iterate over the raw_table_data to separate the prices and names into corresponding lists
-names = []
-prices = []
-for table_cell in raw_table_data:
-    if table_cell['width'] == '228':
-        product_name = table_cell.get_text()
-        names.append(product_name.replace('Got a list question? Want to check if next week\'s list is ready?  Our listmakers answer questions and post our "preview" lists at PYP.', ''))
-    elif table_cell['width'] == '55':
-        product_price = table_cell.get_text()
-        prices.append(product_price.replace(u'\xa0', u' '))
-    name_string = '%'.join(names)
-    price_string = '%'.join(prices)
-            
-# print('names: ', names)
-# print('prices: ', prices)
-
-    # passing the lists to the function that will write to a database
-    write_to_product_table(name_string, price_string)
-
-
-
-
-
-
-
-
-
+def write_to_sqlite(list_obj):
+    """
+    Purpose: to take the list_obj and write it to the Product table of the database
+    Author: Harper Frankstone/Gilbert Diaz
+    Args: list_obj -- a list of strings 
+    """
+    
+    # pass
+    colomn_name = ['name', 'sale_price', 'store']
+    df = pd.DataFrame(list_obj, columns=colomn_name)
+    con = sql.connect("../../django/capstone/db.sqlite3")
+    try:
+        pd_sql.to_sql(df, "stock_up_product", con, index=False)
+    except ValueError:
+        pd_sql.to_sql(df, 'stock_up_product', con, index=False, if_exists='append')
 
 
 
+# the urls for scraping
+kroger_url = "http://www.grocerysmarts.com/tenn/lists/indexmemphis.php?k37ro2"
+cvs_url = "http://www.grocerysmarts.com/tenn/lists/indexmemphis.php?c37vs2"
+target_url = "http://www.grocerysmarts.com/tenn/lists/indexmemphis.php?t37ar2"
 
+kroger_list = scrape_store(kroger_url)
+write_to_sqlite(kroger_list)
 
+cvs_list = scrape_store(cvs_url)
+write_to_sqlite(cvs_list)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# looping over all the cells in the table to wittle down the data to name and price for the deals
-# for row in soup.find_all('tr'):
-#     cell_info = row.find_all('td')
-#     print(cell_info[1])
-
-
-
-    # for each in cell_info:
-    #     if each['width'] == '228':
-    #         name = each.get_text().replace('Todays date:  How to use this list ', '').replace('Current list-This list is valid during the dates listed below', '').replace('This weeks FREE Friday Download is Ocean Spray Mocktails Juice 33.8 oz', '').replace('Kroger Coupon Policy', '')
-    #     elif each['width'] == '55':
-    #         sale_price = each.get_text()
-    #         print(sale_price)
-        
-
-
-
+target_list = scrape_store(target_url)
+write_to_sqlite(target_list)
