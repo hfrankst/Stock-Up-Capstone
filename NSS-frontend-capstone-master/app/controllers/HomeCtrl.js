@@ -2,6 +2,8 @@
 app.controller('HomeCtrl', function($scope, SearchTermData, ProductFactory){
 	$scope.searchText = SearchTermData;
 	$scope.domobjects = [];
+	$scope.list = [];
+
 
 	let kroger_promos = [];
 	let kroger_head = [];
@@ -75,15 +77,16 @@ app.controller('HomeCtrl', function($scope, SearchTermData, ProductFactory){
 	};
 	getPromos();
 
-	//this function is building a new object to be stored by uid, so that the user can load his/her saved promos on the profile page
-	// need to refactor this so that it sends the saved promo to the list under the map
+	//this function is building a new object to be appended to the list that is below the map on the home.html
 	$scope.savePromo = (promo) => {
 		console.log("savePromo", promo);
-		var savedPromo = {
+		let listed_promos = {
 			name: promo.name,
 			store: promo.store,
 			sale_price: promo.sale_price,
+			id: promo.id
 		};
+		$scope.list.push(listed_promos);
 
 		$.notify({
 			icon: 'glyphicon glyphicon-check',
@@ -139,15 +142,15 @@ app.controller('HomeCtrl', function($scope, SearchTermData, ProductFactory){
 
 	$scope.onEachFeature = (feature, layer) => {
 
-		if(feature.store === "Kroger"){
-			var kroger = L.marker([36.1199, -86.7775]).addTo(mymap).bindPopup('<h5><strong>' + feature.store + '</strong></h5><span>' + feature.name + '</span><br><label>Store Address</label><p>' + feature.address + '</p><label>Phone Number</label><p>' + feature.phone + '</p><label>Sale Ends:</label><p>' + feature.promo_end + '</p>');
+		if(feature.store.includes("Kroger")){
+			var kroger = L.marker([36.1199, -86.7775]).addTo(mymap).bindPopup('<h5><strong>' + feature.store + '</strong></h5><span>' + feature.name + '</span><span>' + ' ' + feature.sale_price + '</span>');
 			var panToKroger = mymap.panTo([36.1199, -86.7775], {animation: true});
-		} else if (feature.store === "CVS") {
-			var aldi = L.marker([36.0903, -86.7323]).addTo(mymap).bindPopup('<h5><strong>' + feature.store + '</strong></h5><span>' + feature.name + '</span><br><label>Store Address</label><p>' + feature.address + '</p><label>Phone Number</label><p>' + feature.phone + '</p><label>Sale Ends:</label><p>' + feature.promo_end + '</p>');
-			var panToAldi = mymap.panTo([36.0903, -86.7323]);
-		} else if (feature.store === "Target") {
-			var publix = L.marker([36.1266, -86.8474]).addTo(mymap).bindPopup('<h5><strong>' + feature.store + '</strong></h5><span>' + feature.name + '</span><br><label>Store Address</label><p>' + feature.address + '</p><label>Phone Number</label><p>' + feature.phone + '</p><label>Sale Ends:</label><p>' + feature.promo_end + '</p>');
-			var panToPublix = mymap.panTo([36.1266, -86.8474]);
+		} else if (feature.store.includes("CVS")) {
+			var cvs = L.marker([36.152203, -86.841026]).addTo(mymap).bindPopup('<h5><strong>' + feature.store + '</strong></h5><span>' + feature.name + '</span><span>' + ' ' + feature.sale_price + '</span>');
+			var panToCVS = mymap.panTo([36.152203, -86.841026], {animation: true});
+		} else if (feature.store.includes("Target")) {
+			var target = L.marker([36.1312449551468,-86.8542461919359]).addTo(mymap).bindPopup('<h5><strong>' + feature.store + '</strong></h5><span>' + feature.name + '</span><span>' + ' ' + feature.sale_price + '</span>');
+			var panToTarget = mymap.panTo([36.1312449551468,-86.8542461919359], {animation: true});
 		}		
 	};
 });
