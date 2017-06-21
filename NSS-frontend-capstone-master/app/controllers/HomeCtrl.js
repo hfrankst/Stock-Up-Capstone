@@ -1,39 +1,33 @@
 "use strict";
-// console.log("working?");
 app.controller('HomeCtrl', function($scope, SearchTermData, ProductFactory){
 	$scope.searchText = SearchTermData;
 	$scope.domobjects = [];
+
 	let kroger_promos = [];
 	let kroger_head = [];
-
 	let cvs_promos = [];
 	let cvs_head = [];
-
 	let target_promos = [];
 	let target_head = [];
 
-
+	// builds the object for each store and pushes the objects into the scoped object so that the ng-repeat can render the tables in the home.html
 	let buildDOMObjects = () => {
 		let kroger_obj = {
 			title: 'Kroger',
 			promos: kroger_promos
 		};
-		// console.log("kroger_obj", kroger_obj);
 		$scope.domobjects.push(kroger_obj);
-		// console.log("domobjects", $scope.domobjects);
 
 		let cvs_obj = {
 			title: 'CVS',
 			promos: cvs_promos
 		};
-		console.log("cvs_obj", cvs_obj);
 		$scope.domobjects.push(cvs_obj);
 
 		let target_obj = {
 			title: 'Target',
 			promos: target_promos
 		};
-		console.log("target_obj", target_obj);
 		$scope.domobjects.push(target_obj);
 
 	};
@@ -43,10 +37,7 @@ app.controller('HomeCtrl', function($scope, SearchTermData, ProductFactory){
 			ProductFactory.getAllPromos()
 			.then((promodata) => {
 				$scope.promotions = promodata.data;
-				// console.log("promodata", $scope.promotions);
 				let promo = promodata.data;
-				// console.log("promo", promo) 
-				// let table = [];
 
 				for(var i = 0; i < promo.length; i++){
 					if (promo[i].store.includes('Kroger')){
@@ -85,6 +76,7 @@ app.controller('HomeCtrl', function($scope, SearchTermData, ProductFactory){
 	getPromos();
 
 	//this function is building a new object to be stored by uid, so that the user can load his/her saved promos on the profile page
+	// need to refactor this so that it sends the saved promo to the list under the map
 	$scope.savePromo = (promo) => {
 		console.log("savePromo", promo);
 		var savedPromo = {
