@@ -47,11 +47,5 @@ app.controller('ProfileCtrl', function($scope, SearchTermData, ProductFactory, A
 	userPromos();
 ////////////////////////////////////////
 /////////////find a way to delete the marker on the map when the saved promo is deleted
-	$scope.removePromo = (savedPromoId) => {
-		console.log("delete in factory", savedPromoId);
-		ProductFactory.deleteUsersPromo(savedPromoId)
-		.then((something) => {
-			userPromos();
-		});
-	};
+	
 });

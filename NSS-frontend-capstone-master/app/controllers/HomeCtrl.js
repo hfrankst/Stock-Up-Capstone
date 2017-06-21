@@ -103,6 +103,14 @@ app.controller('HomeCtrl', function($scope, SearchTermData, ProductFactory){
 
 	};
 
+	// the function to remove a promo from the list located underneath the map
+	$scope.removePromo = (promo_to_delete) => {
+		console.log("the id", promo_to_delete);
+		$scope.list.splice(promo_to_delete, 1);
+	};
+
+
+
 	// ===== Scroll to Top...taken from CodePen ==== 
 	$(window).scroll(function() {
 	    if ($(this).scrollTop() >= 50) {        // If page is scrolled more than 50px
