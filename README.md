@@ -8,7 +8,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-Before forking this repository, install (NPM)[https://docs.npmjs.com/getting-started/installing-node] and (Bower)[https://bower.io/#install-bower].   Download Python (here)[https://www.python.org/downloads/]. Also follow the steps below to install the Django REST Framework.
+Before forking this repository, install [NPM](https://docs.npmjs.com/getting-started/installing-node) and [Bower](https://bower.io/#install-bower).   Download Python [here](https://www.python.org/downloads/). Also follow the steps below to install the Django REST Framework.
 
 ```
 pip install djangorestframework
@@ -42,7 +42,7 @@ bower install
 
 ## Versioning
 
-This is version 2.0 of Stock Up.  Version 1 can be found (here)[https://github.com/hfrankst/NSS-frontend-capstone]. 
+This is version 2.0 of Stock Up.  Version 1 can be found [here](https://github.com/hfrankst/NSS-frontend-capstone). 
 
 ## Authors
 
