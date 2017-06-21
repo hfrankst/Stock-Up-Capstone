@@ -27,5 +27,39 @@
 
 
   <div id="mapid"></div>
+
+  <div class="profile-flex">
+    <div class="container" id="save">
+      <div class="row">
+        <h5>Your List</h5>
+        <table class="table">
+        <thead class="table table-inverse">
+          <th>Product Name</th>
+          <th>Sale Price</th>
+          <th>Find It Here!</th>
+        </thead>
+            <tr ng-repeat="each in list | filter: searchText.search">
+              <td>{{ each.name }}</td>
+              <td class="text-muted"><em><strong>{{ each.sale_price }}</strong></em></td>
+              <td>{{ each.store }}
+                <button type="button" class="btn btn-primary btn-sm pull-right" ng-click="removePromo(each.id)">
+                  <span class="glyphicon glyphicon-trash"></span> Remove Promo
+                </button>
+                <button type="button" class="btn btn-primary btn-sm pull-right" ng-click="onEachFeature(each)">
+                  <span class="glyphicon glyphicon-pushpin"></span> Map Promo
+                </button>
+              </td>
+            </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
 <a href="javascript:" id="return-to-top"><i class="icon-chevron-up"></i></a>
 </div>

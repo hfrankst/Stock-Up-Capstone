@@ -12,63 +12,17 @@ app.factory('ProductFactory', function($q, $http, $routeParams){
 		return $q((resolve, reject) => {
       		$http.get(`http://localhost:8000/products/`)
       		.then((promodata) => { 
-      			// console.log("promodata", promodata);
       			let promoArray = [];
       			let promoCollection = promodata.data;
       			Object.keys(promoCollection).forEach((key) => {
       				promoCollection[key].id = key;
       				promoArray.push(promoCollection[key]);
       			});
-      			// console.log("promoArray", promoArray)
       			resolve(promodata);
       		});
-      	});
+      		});
 	};
 
-	// let saveUsersPromos = (savedPromo) => {
-	// 	//this function should send a post call to send a promo with a uid attached to Firebase 
-	// 	console.log("savedPromo in factory", savedPromo);
-	// 	return $q((resolve, reject) => {
-	// 		$http.post(`${FBCreds.databaseURL}/users.json`, savedPromo)
-	// 		.then((ObjectFromFirebase) => {
-	// 			resolve(ObjectFromFirebase);
-	// 		})
-	// 		.catch((error) => {
-	// 			reject(error);
-	// 		});
-	// 	});
 
-	// };
-
-	// let getUsersPromos = (user) => {
-	// 	//this function gets the user's saved promos in order to display them on the profile page
-	// 	return $q((resolve, reject) => {
- //      		$http.get(`${FBCreds.databaseURL}/users.json?orderBy="uid"&equalTo="${user}"`)
- //      		.then((userpromo) => {
- //      			let userSavedDeals = [];
- //      			let savedCollection = userpromo.data;
- //      			Object.keys(savedCollection).forEach((key) => {
- //      				savedCollection[key].id = key;
- //      				userSavedDeals.push(savedCollection[key]);
- //      			});
- //      			resolve(userSavedDeals);
- //      		});
- //      	});
-
-	// };
-
-	// let deleteUsersPromo = (savedPromoId) => {
-	// 	//this function deletes a specific promo from the user's list of saved promos
-	// 	return $q((resolve, reject) => {
-	// 		$http.delete(`${FBCreds.databaseURL}/users/${savedPromoId}.json`)
-	// 		.then((ObjectFromFirebase) => {
-	// 			resolve(ObjectFromFirebase);
-	// 		})
-	// 		.catch((error) => {
-	// 			reject(error);
-	// 		});
-	// 	});
-	// };
-	// , saveUsersPromos, getUsersPromos, deleteUsersPromo
 	return {getAllPromos};
 });
