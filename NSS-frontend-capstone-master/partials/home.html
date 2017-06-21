@@ -1,21 +1,20 @@
+<h6 style="text-align: center; margin-left: auto;"><i>Welcome to Stock Up! This site is designed to make shopping cheaper, more efficient, and less of a hassle.  Use the below promotions to plan your shopping trips and save some money!</i></h6>
 <div class="container">
-  <div class="row" ng-repeat="item in finalArray | filter: searchText.search">
+  <div class="row col-sm-7">
+  
+  <div ng-repeat="each in domobjects | filter: searchText.search">
+    <h4 class="capitalize">{{ each.title }}</h4>
     <table class="table table-hover promo-table" >
-      <h4 class="capitalize">{{item.heading}}</h4>
-      <thead class="table table-inverse" >
-        <th>{{item.name}}</th>
-        <th>{{item.reg_price}}</th>
-        <th>{{item.sale}}</th>
-        <th>{{item.date}}</th>
-        <th>{{item.location}}</th>
+      <thead class="table table-inverse">
+        <th>Product Name</th>
+        <th>Discount Price</th>
+        <th>Find It Here!</th>
       </thead>
-      <tbody  ng-repeat="promotion in promotions | filter: searchText.search">
+      <tbody  ng-repeat="promotion in each.promos | filter: searchText.search">
         <tr>
-          <td width="25%">{{promotion.name}}</td>
-          <td class="text-muted">{{promotion.sale_price | currency}}</td>
-          <!-- <td class="text-success"><em><strong>{{promotion.discount_price | currency}}</strong></em></td> -->
-          <!-- <td class="text-danger"><strong>{{promotion.promo_end}}</strong></td> -->
-          <td>{{promotion.store}}
+          <td width="25%">{{ promotion.name }}</td>
+          <td class="text-muted">{{ promotion.sale_price }}</td>
+          <td>{{ promotion.store }}
             <button type="button" class="btn btn-primary btn-sm pull-right" ng-click="savePromo(promotion)">
               <span class="glyphicon glyphicon-plus"></span> Add Promo
             </button>
@@ -26,4 +25,7 @@
   </div>
 </div>
 
+
+  <div id="mapid"></div>
 <a href="javascript:" id="return-to-top"><i class="icon-chevron-up"></i></a>
+</div>
