@@ -91,19 +91,28 @@ h4 {
 
 #save {
 	justify-content: flex-start;
-	width: 85%;
+	width: 100%;
 	display: inline-block;
+	margin-left: 15px;
 }
 
 #mapid { 
-	height: 400px;
-	width: 40%; 
+	height: 300px;
+	width: 100%; 
 	display: inline-block;
 	margin-left: 15px;
 	box-shadow: 3px 3px 3px 1px black;
 	position: relative;
 }
 
+#maplist {
+	max-width: 40%;
+	margin-top: 75px;
+	position: absolute;
+	/*float: right;*/
+/*	overflow: scroll;
+	overflow: hidden;
+*/}
 /*Promotions Page Styling*/
 
 table {

@@ -16,7 +16,7 @@ def scrape_store(url):
     # Hits the store url and creats BeaustifulSoup Object
     response = requests.get(url)
     html = BeautifulSoup(response.content, 'html.parser')
-    
+
     # Empty list to build store sales
     super_market = list()
 
@@ -25,8 +25,9 @@ def scrape_store(url):
     prices = html.find_all(attrs={'width': "55"})
     
     # Gets the store's name
+    # Before scraping again, go to the target website and look to see if the table index has changed for the store name and dates
     for k, store in enumerate(items):
-        if k == 1:
+        if k == 2:
             store_name = store.text 
 
     # Append items to list
