@@ -39,7 +39,7 @@
               <th>Find It Here!</th>
             </thead>
             <tr ng-repeat="each in list | filter: searchText.search">
-              <td ng-if="list = empty">Add items to this list!</td>
+              <td ng-hide="list">Add items to this list!</td>
               <td>{{ each.name }}</td>
               <td class="text-muted"><em><strong>{{ each.sale_price }}</strong></em></td>
               <td>{{ each.store }}

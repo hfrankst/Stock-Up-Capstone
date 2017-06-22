@@ -40,10 +40,11 @@ app.controller('HomeCtrl', function($scope, SearchTermData, ProductFactory){
 			.then((promodata) => {
 				$scope.promotions = promodata.data;
 				let promo = promodata.data;
-
+				// console.log("promo", promo);
 				for(var i = 0; i < promo.length; i++){
 					if (promo[i].store.includes('Kroger')){
 						kroger_promos.push(promo[i]);
+						// console.log("kroger", kroger_promos);
 					} else if (promo[i].store.includes('CVS')){
 						cvs_promos.push(promo[i]);
 					} else if (promo[i].store.includes('Target')){
@@ -79,7 +80,6 @@ app.controller('HomeCtrl', function($scope, SearchTermData, ProductFactory){
 
 	//this function is building a new object to be appended to the list that is below the map on the home.html
 	$scope.savePromo = (promo) => {
-		console.log("savePromo", promo);
 		let listed_promos = {
 			name: promo.name,
 			store: promo.store,
@@ -105,7 +105,6 @@ app.controller('HomeCtrl', function($scope, SearchTermData, ProductFactory){
 
 	// the function to remove a promo from the list located underneath the map
 	$scope.removePromo = (promo_to_delete) => {
-		console.log("the id", promo_to_delete);
 		$scope.list.splice(promo_to_delete, 1);
 	};
 
@@ -132,10 +131,6 @@ app.controller('HomeCtrl', function($scope, SearchTermData, ProductFactory){
 
 	let mymap = L.map('mapid').setView([36.1325, -86.7566], 15);
 
-	var greenMarker = L.AwesomeMarkers.icon({
-		icon: 'user-circle',
-		markerColor: 'green'
-	});
 
 	let leaflet = () => {
 
